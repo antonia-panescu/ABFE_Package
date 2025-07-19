@@ -19,14 +19,22 @@ Example:
 from abfe.setup import SimulationSetup
 
 setup = SimulationSetup(
-    base_path="/path/to/base",
-    charmm_folder="/path/to/charmm",
-    protein_folder="/path/to/protein",
-    sdf_folder="/path/to/sdfs",
-    crystal_water_gro="/path/to/crystal_water.gro",
-    mdp_templates_path="/path/to/mdp_templates",
-    jobscript_template_path="/path/to/jobscript_templates"
+    base_path           = "/ABS/PATH/TO/WORK/FOLDER",                 # e.g. "/home/user/projects/a2a_run"
+    charmm_folder       = "/ABS/PATH/TO/CHARMM_GMX",                  # …/system_setup/charmm/charmm_gmx
+    protein_folder      = "/ABS/PATH/TO/PARAMETERISED_PROTEIN",       # …/protein_prep/protein_param
+    sdf_folder          = "/ABS/PATH/TO/LIGAND_SDFS",                 # folder full of *.sdf
+    crystal_water_gro   = "/ABS/PATH/TO/crystal_waters.gro",          # the file you merge in
+    mdp_templates_path  = "/ABS/PATH/TO/MDP_TEMPLATES",               # dir that contains your .mdp files
+    jobscript_template_path = "/ABS/PATH/TO/JOBSCRIPT_TEMPLATES",     # dir with SLURM/Archer scripts
+    # the three below are optional (defaults shown):
+    solvate_water_count = 10286,
+    crystal_water_count = 136,
+    num_nodes           = 2
 )
 
+# prepare every ligand in the SDF folder
 setup.setup_all()
+
+# or, for a single ligand:
+# setup.setup_simulation("cmp_123")
 ```
