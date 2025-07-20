@@ -26,9 +26,12 @@ class SimulationSetup:
         self.crystal_water_count = crystal_water_count
         self.num_nodes = num_nodes
 
-    def setup_simulation(self, compound_name):
+    def setup_simulation(self, compound_name, replicate: int = 1):
         complex_folder = self.base_path / f"A2A_{compound_name}"
-        vanilla_path = complex_folder / "vanilla"
+        
+        # name each repeat folder “vanilla_rep_N”
+        vanilla_name = f"vanilla_rep_{replicate}"
+        vanilla_path = complex_folder / vanilla_name
         vanilla_path.mkdir(parents=True, exist_ok=True)
 
         sdf_file = self.sdf_folder / f"{compound_name}.sdf"
@@ -71,8 +74,15 @@ class SimulationSetup:
             elif item.is_dir():
                 shutil.copytree(item, item.name)
 
-    def setup_all(self):
+    def setup_all(self, repeats: int = 1):
+        """
+        Loop over every ligand in `sdf_folder`, running `repeats` independent setups.
+
+        Args:
+            repeats: how many vanilla_rep_N folders per ligand to produce.
+        """
         compound_list = [p.stem for p in self.sdf_folder.glob("*.sdf")]
         for compound in compound_list:
-            print(f"Setting up {compound}")
-            self.setup_simulation(compound)
+            for rep in range(1, repeats + 1):
+                print(f"Setting up {compound}, replica {rep}")
+                self.setup_simulation(compound, replicate=rep)
