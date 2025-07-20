@@ -26,6 +26,7 @@ setup = SimulationSetup(
     crystal_water_gro   = "/ABS/PATH/TO/crystal_waters.gro",          # the file you merge in
     mdp_templates_path  = "/ABS/PATH/TO/MDP_TEMPLATES",               # dir that contains your .mdp files
     jobscript_template_path = "/ABS/PATH/TO/JOBSCRIPT_TEMPLATES",     # dir with SLURM/Archer scripts
+
     # the three below are optional (defaults shown):
     solvate_water_count = 10286,
     crystal_water_count = 136,
@@ -35,6 +36,13 @@ setup = SimulationSetup(
 # prepare every ligand in the SDF folder
 setup.setup_all()
 
-# or, for a single ligand:
+# or, for a single ligand, single run:
 # setup.setup_simulation("cmp_123")
+
+# all ligands, 5 repeats
+# setup.setup_all(repeats=5)
+
+# single ligand, custom repeats (three replicas for only cmp_42
+# for replica in range(1, 4):
+#    setup.setup_simulation("cmp_42", replicate=replica)
 ```
