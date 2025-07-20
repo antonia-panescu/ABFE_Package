@@ -16,7 +16,7 @@ This package provides a `SimulationSetup` class for preparing vanilla systems.
 
 Example:
 ```python
-from abfe.setup import SimulationSetup
+from abfe.setup_vanilla_simulations import SimulationSetup
 
 setup = SimulationSetup(
     base_path           = "/ABS/PATH/TO/WORK/FOLDER",                 # e.g. "/home/user/projects/a2a_run"

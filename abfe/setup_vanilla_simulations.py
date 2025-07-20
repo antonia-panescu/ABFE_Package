@@ -5,7 +5,7 @@ from pathlib import Path
 import MDAnalysis as mda
 from MDAnalysis.coordinates.GRO import GROWriter
 
-from abfe.utils import merge_gro_files, add_water2topology, addtoppar2top, copy_jobscripts_vanilla
+from abfe.utils.utils import merge_gro_files, add_water2topology, addtoppar2top, copy_jobscripts_vanilla
 from abfe.utils.extract_membrane import extract_membrane
 from abfe.utils.smirnoff_param_func import smirnoff_parameterize
 from abfe.utils.gromacs_helpers_single_chain import *
@@ -47,7 +47,7 @@ class SimulationSetup:
         os.chdir(vanilla_path)
         sdf_file = f"{compound_name}.sdf"
 
-        # These helper functions are assumed to be defined/imported from utils.py or another module
+        # Helper functions
         param_lig(sdf_file)
         self.copy_parameterized_protein()
         organize_topologies()
