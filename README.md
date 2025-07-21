@@ -71,7 +71,6 @@ setup.setup()
 Example:
 ```from abfe_package.abfe_analyzer import ABFEAnalyzer
 
-# Initialize analyzer
 analyzer = ABFEAnalyzer(
     project_root="/path/to/simulations",
     abfe_subdirs=["abfe_van1_hrex_r1", "abfe_van2_hrex_r1", "abfe_van3_hrex_r1"],
