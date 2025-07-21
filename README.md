@@ -12,7 +12,7 @@ module load plumed/2.8.1_cuda_mpi
 
 ## Usage
 
-This package provides a `SimulationSetup` class for preparing vanilla systems.
+`SimulationSetup` class for preparing vanilla systems.
 
 Example:
 ```python
@@ -45,4 +45,43 @@ setup.setup_all()
 # single ligand, custom repeats (three replicas for only cmp_42
 # for replica in range(1, 4):
 #    setup.setup_simulation("cmp_42", replicate=replica)
+```
+
+`ABFESetup` class for setting-up ABFE folders for simulation.
+
+Example:
+```from abfe.abfe_setup import ABFESetup
+
+setup = ABFESetup(
+    base_path="/path/to/simulations",
+    ligands=["Ligand1", "Ligand2"],
+    num_replicates=3,
+    template_script_path="/path/to/job_template.sh",
+    contd_script_path="/path/to/job_template_contd.sh",
+    archer_nodes=22
+)
+
+setup.setup()
+```
+
+
+
+`ABFEAnalyzer` class for analyzing ABFE productions.
+
+Example:
+```from abfe_package.abfe_analyzer import ABFEAnalyzer
+
+# Initialize analyzer
+analyzer = ABFEAnalyzer(
+    project_root="/path/to/simulations",
+    abfe_subdirs=["abfe_van1_hrex_r1", "abfe_van2_hrex_r1", "abfe_van3_hrex_r1"],
+)
+
+# Run analysis:
+# - Complex analysis for all folders/replicates
+# - Ligand analysis only for the first replicate
+# - Symlink ligand results for other replicates
+# - Compile final results for all replicates
+
+analyzer.run()
 ```
